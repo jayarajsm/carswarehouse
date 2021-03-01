@@ -1,7 +1,9 @@
 package com.usedcars.carswarehouse.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +32,8 @@ public class UsedCarController {
         return listWarehouse;
     }
     @GetMapping(value = "/allCars")
-    public List<AllCarsDetails> getAllVehicles() {
+    public HashMap<String, Object> getAllVehicles() {
+
     List<Warehouse> listWarehouse = repository.findAll();
     List<AllCarsDetails> allCarDetails = new ArrayList();
     for(Warehouse wh: listWarehouse)
@@ -58,7 +61,9 @@ public class UsedCarController {
 		}
     	}
 	 }
-    return allCarDetails;
+        HashMap<String, Object> carsInfo = new HashMap<>();
+        carsInfo.put("cars",allCarDetails);
+    return carsInfo;
 }
 
     @GetMapping(value = "{name}")
